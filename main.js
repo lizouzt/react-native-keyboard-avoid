@@ -1,5 +1,4 @@
-import { UIManager } from'NativeModules';
-import { findNodeHandle, Keyboard } from'react-native';
+import { findNodeHandle, Keyboard, NativeModules} from'react-native';
 
 let keyboardSpace = 0;
 
@@ -58,7 +57,7 @@ export default {
         const {nodeRef} = elements;
         const handle = findNodeHandle(nodeRef);
 
-        UIManager.measure(handle, (x, y, width, height, pageX, pageY) => {
+        NativeModules.UIManager.measure(handle, (x, y, width, height, pageX, pageY) => {
             if (behavior == 'scroll') {
                 const avoidHeight = keyboardSpace + targetScrollOffset;
                 const offset = avoidHeight - (config.height - (pageY + height));
