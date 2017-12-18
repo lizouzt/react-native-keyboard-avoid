@@ -1,6 +1,6 @@
 {
     "name": "react-native-keyboard-avoid",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "react native keep sth out keyboard widthout any additional component node",
     "main": "main.js",
     "scripts": {

@@ -1,4 +1,4 @@
-import { findNodeHandle, Keyboard, NativeModules} from'react-native';
+const { findNodeHandle, Keyboard, NativeModules} = require('react-native');
 
 let keyboardSpace = 0;
 
