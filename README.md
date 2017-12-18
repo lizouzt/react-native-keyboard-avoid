@@ -24,7 +24,7 @@ It accept `ScrollView`, `ListView`, `FlatList` and any other `View` component. T
 #### 1.With something in `ScrollView` or `ListView`, `FlatList`
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/wiki/APSL/react-native-keyboard-aware-scroll-view/kasv.gif" alt="Scroll demo" width="400">
+<img src="https://raw.githubusercontent.com/lizouzt/react-native-keyboard-avoid/master/input.gif" width="375">
 </p>
 
 ```js
@@ -66,7 +66,7 @@ or
 #### 2.With component which use position: 'absolute'
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/wiki/APSL/react-native-keyboard-aware-scroll-view/kasv.gif" alt="Scroll demo" width="400">
+<img src="https://raw.githubusercontent.com/lizouzt/react-native-keyboard-avoid/master/View.gif" width="375">
 </p>
 
 ```js
@@ -98,7 +98,7 @@ _onPress () {
 
 #### 3.With two components one use position and one use scroll
 <p align="center">
-<img src="https://raw.githubusercontent.com/wiki/APSL/react-native-keyboard-aware-scroll-view/kasv.gif" alt="Scroll demo" width="400">
+<img src="https://raw.githubusercontent.com/lizouzt/react-native-keyboard-avoid/master/both.gif" width="375">
 </p>
 
 ```js
