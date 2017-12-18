@@ -15,6 +15,9 @@
         "keyboard",
         "avoid"
     ],
+    "devDependencies": {
+        "react-native": "^0.20"
+    },
     "author": "wooha",
     "license": "MIT"
 }
