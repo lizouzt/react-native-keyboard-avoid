@@ -24,7 +24,7 @@ It accept `ScrollView`, `ListView`, `FlatList` and any other `View` component. T
 #### 1.With something in `ScrollView` or `ListView`, `FlatList`
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/lizouzt/react-native-keyboard-avoid/master/input.gif" width="375">
+<img src="https://raw.githubusercontent.com/lizouzt/react-native-keyboard-avoid/master/Input.gif" width="375">
 </p>
 
 ```js
