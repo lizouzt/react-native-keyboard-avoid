@@ -1,0 +1,20 @@
+{
+    "name": "react-nativek-keyboard-avoid",
+    "version": "1.0.0",
+    "description": "react native keep sth out keyboard widthout any additional component node",
+    "main": "main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:lizouzt/react-native-keyboard-avoid.git"
+    },
+    "keywords": [
+        "react-native",
+        "keyboard",
+        "avoid"
+    ],
+    "author": "wooha",
+    "license": "MIT"
+}

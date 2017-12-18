@@ -1,0 +1,11 @@
+node_modules
+.tmp
+.travis.yml
+*.swp
+.sass-cache/
+mods/.sass-cache/
+.DS_Store
+.idea
+.eslintignore
+BuildFile.js
+.DS_Stores
