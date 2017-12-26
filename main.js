@@ -83,12 +83,14 @@ export default {
 
                 if (offset > 0) {
                     if (nodeRef.setNativeProps) {
-                        config.height - pageY - height
+                        if (nodeRef.props.style.bottom == undefined) {
+                            console.warn('While in `position` mod, bottom of nodeRef must be set in JSX with style property');
+                        }
 
                         recoverList.push({
                             behavior: behavior,
                             nodeRef: nodeRef,
-                            bottom: nodeRef.props.style.bottom
+                            bottom: nodeRef.props.style.bottom || 0
                         });
                         nodeRef.setNativeProps({
                             style: {
