@@ -1,4 +1,4 @@
-const { findNodeHandle, Keyboard, NativeModules} = require('react-native');
+const { findNodeHandle, Keyboard, NativeModules, StyleSheet} = require('react-native');
 
 let keyboardSpace = 0;
 
@@ -83,14 +83,12 @@ export default {
 
                 if (offset > 0) {
                     if (nodeRef.setNativeProps) {
-                        if (nodeRef.props.style.bottom == undefined) {
-                            console.warn('While in `position` mod, bottom of nodeRef must be set in JSX with style property');
-                        }
+                        let bottom = nodeRef.props.style.bottom || StyleSheet.flatten(nodeRef.props.style).bottom;
 
                         recoverList.push({
                             behavior: behavior,
                             nodeRef: nodeRef,
-                            bottom: nodeRef.props.style.bottom || 0
+                            bottom: bottom || 0
                         });
                         nodeRef.setNativeProps({
                             style: {
@@ -98,7 +96,7 @@ export default {
                             }
                         })
                     } else {
-                        console.warn('RCTNode ', nodeRef, ' could not used for KeyboardAvoid.');
+                        console.warn('RCTNode type ', nodeRef.viewConfig.uiViewClassName, ' could not used for KeyboardAvoid.');
                     }
                 }
             }
