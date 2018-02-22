@@ -1,8 +1,9 @@
-const { findNodeHandle, Keyboard, NativeModules, StyleSheet} = require('react-native');
+const { findNodeHandle, Keyboard, NativeModules, Platform, Dimensions} = require('react-native');
 
+const PAGEH = Dimensions.get('window').height - (Platform.OS == 'ios' ? 0 : 20);
+const recoverList = [];
 let keyboardSpace = 0;
 
-const recoverList = [];
 const updateKeyboardSpace = (event) => {
     keyboardSpace = Math.floor(event.endCoordinates.height);
 }
@@ -32,7 +33,7 @@ const resetKeyboardSpace = () => {
     recoverList.length = 0;
 }
 
-if (config.platform == 'ios') {
+if (Platform.OS == 'ios') {
     keyboardShow = Keyboard.addListener('keyboardWillShow', updateKeyboardSpace);
     keyboardHide = Keyboard.addListener('keyboardWillHide', resetKeyboardSpace);
 } else {
@@ -55,19 +56,19 @@ export default {
     * */
     checkNeedScroll: (elements, behavior='scroll', targetScrollOffset=0) => {
         const {nodeRef} = elements;
-        const handle = findNodeHandle(nodeRef);
+        let handle = findNodeHandle(nodeRef);
 
         NativeModules.UIManager.measure(handle, (x, y, width, height, pageX, pageY) => {
             if (behavior == 'scroll') {
-                const avoidHeight = keyboardSpace + targetScrollOffset;
-                const offset = avoidHeight - (config.height - (pageY + height));
+                let avoidHeight = keyboardSpace + targetScrollOffset;
+                let offset = avoidHeight - (PAGEH - (pageY + height));
                 if (offset > 0) {
                     const {scrollNodeRef, contentOffset} = elements;
 
                     recoverList.push({
                         behavior: behavior,
                         scrollNodeRef: scrollNodeRef,
-                        paddingBottom: scrollNodeRef.props.style.paddingBottom,
+                        paddingBottom: scrollNodeRef.props.style ? scrollNodeRef.props.style.paddingBottom : 0,
                         contentOffset: contentOffset
                     });
 
@@ -78,13 +79,12 @@ export default {
                     }
                 }
             } else if (behavior == 'position') {
-                const avoidHeight = keyboardSpace - (config.height - pageY - height);
-                const offset = avoidHeight - (config.height - (pageY + height));
+                let bottom = PAGEH - pageY - height;
+                let avoidHeight = keyboardSpace + bottom;
+                let offset = avoidHeight - bottom;
 
                 if (offset > 0) {
                     if (nodeRef.setNativeProps) {
-                        let bottom = nodeRef.props.style.bottom || StyleSheet.flatten(nodeRef.props.style).bottom;
-
                         recoverList.push({
                             behavior: behavior,
                             nodeRef: nodeRef,
