@@ -49,9 +49,11 @@ const initListener = () => {
 
 export default {
     unMount: () => {
-        isOn = false;
-        keyboardShow.remove();
-        keyboardHide.remove();
+        if (isOn) {
+            keyboardShow.remove();
+            keyboardHide.remove();
+            isOn = false;
+        }
     },
     /*
     *   @param {elements}    
