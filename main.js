@@ -33,16 +33,23 @@ const resetKeyboardSpace = () => {
     recoverList.length = 0;
 }
 
-if (Platform.OS == 'ios') {
-    keyboardShow = Keyboard.addListener('keyboardWillShow', updateKeyboardSpace);
-    keyboardHide = Keyboard.addListener('keyboardWillHide', resetKeyboardSpace);
-} else {
-    keyboardShow = Keyboard.addListener('keyboardDidShow', updateKeyboardSpace);
-    keyboardHide = Keyboard.addListener('keyboardDidHide', resetKeyboardSpace);
+let keyboardHide, keyboardShow;
+let isOn = false;
+
+const initListener = () => {
+    isOn = true;
+    if (Platform.OS == 'ios') {
+        keyboardShow = Keyboard.addListener('keyboardWillShow', updateKeyboardSpace);
+        keyboardHide = Keyboard.addListener('keyboardWillHide', resetKeyboardSpace);
+    } else {
+        keyboardShow = Keyboard.addListener('keyboardDidShow', updateKeyboardSpace);
+        keyboardHide = Keyboard.addListener('keyboardDidHide', resetKeyboardSpace);
+    }
 }
 
 export default {
     unMount: () => {
+        isOn = false;
         keyboardShow.remove();
         keyboardHide.remove();
     },
@@ -55,9 +62,11 @@ export default {
     *   @param {targetScrollOffset}
     * */
     checkNeedScroll: (elements, behavior='scroll', targetScrollOffset=0) => {
+        !isOn && initListener();
+
         const {nodeRef} = elements;
         let handle = findNodeHandle(nodeRef);
-
+        
         NativeModules.UIManager.measure(handle, (x, y, width, height, pageX, pageY) => {
             if (behavior == 'scroll') {
                 let avoidHeight = keyboardSpace + targetScrollOffset;
@@ -82,7 +91,7 @@ export default {
                 let bottom = PAGEH - pageY - height;
                 let avoidHeight = keyboardSpace + bottom;
                 let offset = avoidHeight - bottom;
-
+                
                 if (offset > 0) {
                     if (nodeRef.setNativeProps) {
                         recoverList.push({
@@ -90,6 +99,7 @@ export default {
                             nodeRef: nodeRef,
                             bottom: bottom || 0
                         });
+                        
                         nodeRef.setNativeProps({
                             style: {
                                 bottom: avoidHeight
